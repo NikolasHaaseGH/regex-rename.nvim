@@ -4,7 +4,7 @@ local normalMode = require("regex-rename.normalMode")
 
 function M.rename()
     local result = normalMode.rename()
-    --print(table.concat(result, ',')
+    print(result[0][0])
 end
 
 return M
