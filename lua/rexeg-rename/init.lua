@@ -1,6 +1,5 @@
-local vapi = vim.api
-
 local M = {}
+
 
 local normalMode = require("regex-rename.normalMode")
 
