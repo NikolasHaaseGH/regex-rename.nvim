@@ -2,7 +2,7 @@ local M = {}
 
 local vapi = vim.api
 
-function M.scanLineForMatches(token, line, matchesArray, lineNumber)
+local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_start = 1
     local match_step = 1
 
@@ -38,6 +38,8 @@ function M.scanFileForMatches(token, start_line, end_line)
     for i = 1, #bufferLines do
         scanLineForMatches(token, bufferLines[i], matches, lineColumn )
     end
+
+    return matches
 end
 
 return M
