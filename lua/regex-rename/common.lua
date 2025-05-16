@@ -7,6 +7,9 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_step = 1
 
     local lineLength = #line
+    if lineLength < 1 then
+        return
+    end
     local tokenLength = #token
     local count = 0
     for i = 1, lineLength do
