@@ -18,7 +18,7 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
             if match_step == tokenLength then
                 table.insert(matchesArray, {lineNumber, match_start})
                 match_start = i+1
-                match_step = 1 
+                match_step = 1
                 count = count + 1
             else
                 match_step = match_step + 1
