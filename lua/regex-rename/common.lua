@@ -31,7 +31,8 @@ end
 
 function M.scanFileForMatches(token, start_line, end_line)
     local matches = {}
-    local bufferLines = vapi.getbufline(0, 1, "$") -- get list of all lines in buffer
+    local buffer = vapi.getbufinfo()[0]
+    local bufferLines = vapi.getbufline(buffer.name, 1, "$") -- get list of all lines in buffer
 
     local lineColumn = start_line
 
