@@ -1,10 +1,9 @@
 local M = {}
 
--- local normalMode = require("regex-rename.normalMode")
-function M.setup()
-    --nothing yet
-end
+local normalMode = require("regex-rename.normalMode")
 
-print("moinsen")
+function M.rename()
+    normalMode.rename()
+end
 
 return M
