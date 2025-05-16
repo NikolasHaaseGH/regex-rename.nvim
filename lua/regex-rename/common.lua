@@ -34,8 +34,9 @@ function M.scanFileForMatches(token, start_line, end_line)
     local buffer = vim.api.nvim_get_current_buf() 
     local bufferLines = vim.api.nvim_buf_get_lines(buffer, 1, 5, false)
     local lineColumn = start_line
-    print(bufferLines[1])
-
+    for i = 1, #bufferLines do
+        print(bufferLines[i])
+    end
     for i = 1, #bufferLines do
         scanLineForMatches(token, bufferLines[i], matches, lineColumn )
     end
