@@ -2,7 +2,7 @@ local vapi = vim.api
 
 local M = {}
 
-local normalMode = require("simple_rename.normalMode")
+local normalMode = require("regex-rename.normalMode")
 
 local Mode = {}
 Mode.normal = 0
