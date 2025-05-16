@@ -3,7 +3,8 @@ local M = {}
 local normalMode = require("regex-rename.normalMode")
 
 function M.rename()
-    normalMode.rename()
+    local result = normalMode.rename()
+    print(result[1])
 end
 
 return M

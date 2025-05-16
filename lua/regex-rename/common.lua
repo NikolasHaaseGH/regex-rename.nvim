@@ -1,22 +1,22 @@
 local Module = {}
 
-vapi = vim.api()
+local vapi = vim.api()
 
 local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_start = 1
     local match_step = 1
 
-    lineLength = #line
-    tokenLength = #token
+    local lineLength = #line
+    local tokenLength = #token
 
     for i = 1, lineLength do
         if lineLength - i < tokenLength then
-            return matches
+            break
         end
 
         if line[i] == token[match_step] then
             if match_step == #token then
-                table.insert(matches, {lineNumber, match_start})
+                table.insert(matchesArray, {lineNumber, match_start})
                 match_start = i
                 match_step = 1 
             else
