@@ -7,7 +7,7 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_step = 1
 
     local lineLength = #line
-    if lineLength < 1 then
+    if lineLength < 1 or line == nil then
         return
     end
     local tokenLength = #token
