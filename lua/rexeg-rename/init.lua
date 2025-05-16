@@ -11,7 +11,7 @@ Mode.visual_by_line = 2
 Mode.visual_blockwise = 3
 Mode.insert = 4
 
-function getCurrentMode()
+local function getCurrentMode()
     local vim_mode = vapi.mode()
         
     if vim_mode == "n" then return Mode.normal
@@ -24,10 +24,6 @@ function getCurrentMode()
 end
 
 function M.rename()
-    local mode = getCurrentMode()
-    if mode == Mode.normal then 
-        normalMode.rename()
-    end
 end
 
 
