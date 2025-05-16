@@ -1,6 +1,6 @@
 local Module = {}
 
-local vapi = vim.api()
+local vapi = vim.api
 
 local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_start = 1
