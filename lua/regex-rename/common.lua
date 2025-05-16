@@ -15,7 +15,7 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
         end
 
         if line[i] == token[match_step] then
-            print(line[i] .. " | " .. token[match_step] .. " | " .. tostring(match_step) .. " | " .. tostring(i))
+            print(line[i] .. " | " .. tostring(match_step) .. " | " .. tostring(i))
             if match_step == tokenLength then
                 table.insert(matchesArray, {lineNumber, match_start})
                 match_start = i+1
