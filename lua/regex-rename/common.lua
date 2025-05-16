@@ -31,7 +31,7 @@ end
 
 function M.scanFileForMatches(token, start_line, end_line)
     local matches = {}
-    local bufferLines = vapi.getbufline(1, 1, "$") -- get list of all lines in buffer
+    local bufferLines = vim.api.getbufline(1, 1, "$") -- get list of all lines in buffer
 
     local lineColumn = start_line
 
