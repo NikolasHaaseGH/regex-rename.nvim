@@ -13,19 +13,24 @@ Mode.insert = 4
 
 local function getCurrentMode()
     local vim_mode = vapi.mode()
-        
-    if vim_mode == "n" then return Mode.normal
-    elseif vim_mode == "v" then return Mode.visual_by_character
-    elseif vim_mode == "V" then return Mode.visual_by_line
-    elseif vim_mode == "CTRL-V" then return Mode.visual_blockwise
-    elseif vim_mode == "i" then return Mode.insert
-    else return Mode.normal -- TODO: change this to some error value
+
+    if vim_mode == "n" then
+        return Mode.normal
+    elseif vim_mode == "v" then
+        return Mode.visual_by_character
+    elseif vim_mode == "V" then
+        return Mode.visual_by_line
+    elseif vim_mode == "CTRL-V" then
+        return Mode.visual_blockwise
+    elseif vim_mode == "i" then
+        return Mode.insert
+    else
+        return Mode.normal  -- TODO: change this to some error value
     end
 end
 
 function M.rename()
+    print("moinsen")
 end
-
-
 
 return M
