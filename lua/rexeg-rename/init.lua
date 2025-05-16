@@ -1,6 +1,6 @@
-local plugin = {}
-
 local vapi = vim.api
+
+local M = {}
 
 local normalMode = require("simple_rename.normalMode")
 
@@ -23,13 +23,13 @@ function getCurrentMode()
     end
 end
 
-function plugin.rename()
+function M.rename()
     local mode = getCurrentMode()
     if mode == Mode.normal then 
-        beginRenameInNormalMode()
+        normalMode.rename()
     end
 end
 
 
 
-return plugin
+return M
