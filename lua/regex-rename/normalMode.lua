@@ -4,7 +4,7 @@ local common = require("regex-rename.common")
 
 function M.rename()
     local matches = {} 
-    common.scanLineForMatches("test", "test: there are two tests in here.", matches, 3)
+    common.scanLineForMatches("test", "test: there are two tests in here.", matches, 4)
     return matches
 end
 

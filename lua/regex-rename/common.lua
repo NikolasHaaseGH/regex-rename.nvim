@@ -2,7 +2,7 @@ local M = {}
 
 local vapi = vim.api
 
-local function scanLineForMatches(token, line, matchesArray, lineNumber)
+function M.scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_start = 1
     local match_step = 1
 
