@@ -1,4 +1,4 @@
-local Module = {}
+local M = {}
 
 local vapi = vim.api
 
@@ -29,7 +29,7 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
     end
 end
 
-function Module.scanFileForMatches(token, start_line, end_line)
+function M.scanFileForMatches(token, start_line, end_line)
     local matches = {}
     local bufferLines = vapi.getbufline(0, 1, "$") -- get list of all lines in buffer
 
@@ -39,3 +39,5 @@ function Module.scanFileForMatches(token, start_line, end_line)
         scanLineForMatches(token, bufferLines[i], matches, lineColumn )
     end
 end
+
+return M
