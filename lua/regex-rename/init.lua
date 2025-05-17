@@ -4,14 +4,14 @@ local virtualCursor = require("regex-rename.virtualCursor")
 local common = require("regex-rename.common")
 local extmark = require("regex-rename.extmark")
 
-function M.rename(jumpToEnd)
+function M.rename()
     local token = common.getWordUnderCursor()
     if token == "" then
         return
     end
 
     local matches = common.scanFileForMatches(token, 1, -1)
-    local offset = jumpToEnd and #token or 0
+    local offset = true and #token or 0
 
     for i = 1, #matches do
         local line = matches[i][1]
