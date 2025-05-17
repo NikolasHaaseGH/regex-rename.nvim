@@ -27,7 +27,7 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local tokenLength = #token
 
     for i = 1, lineLength do
-        if lineLength - i < tokenLength then
+        if lineLength - match_start < tokenLength then
             break
         end
 
