@@ -27,7 +27,7 @@ local function set_extmark(lnum, col, mark_id, hl_group, priority, tokenLength)
 
     vim.api.nvim_buf_set_mark(0, "<", lnum, col - 1, {})
     vim.api.nvim_buf_set_mark(0, ">", lnum, col + tokenLength - 1, {})
-    vim.cmd("normal! gv")
+    --vim.cmd("normal! gv")
     --return vim.api.nvim_buf_set_extmark(0, highlight_namespace_id, lnum - 1, col - 1, opts)
 end
 
