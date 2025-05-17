@@ -17,8 +17,8 @@ local function set_extmark(lnum, col, mark_id, hl_group, priority, tokenLength)
         opts.id = mark_id
     end
 
-    -- Otherwise highlight the character
-    opts.end_col = col + tokenLength
+    -- Highlight the entire token
+    opts.end_col = col + (tokenLength - 1)
     opts.hl_group = hl_group
 
     if priority ~= 0 then
