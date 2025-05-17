@@ -17,6 +17,7 @@ function M.rename()
         local line = matches[i][1]
         local column = matches[i][2]
 
+        virtualCursor.add_with_visual_area(line,  column + offset, 1, line, column, false, #token)
         virtualCursor.add(line, column + offset, 1, false, #token)
     end
 end

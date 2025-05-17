@@ -65,7 +65,7 @@ end
 -- Add a new virtual cursor
 -- add_seq indicates that a sequence number should be added to store the order that cursors have being added
 function VirtualCursor.add(lnum, col, curswant, add_seq, tokenLength)
-  VirtualCursor.add_with_visual_area(lnum, col, curswant, lnum, col, add_seq, tokenLength)
+  VirtualCursor.add_with_visual_area(lnum, col, curswant, 0, 0, add_seq, tokenLength)
 end
 
 return VirtualCursor
