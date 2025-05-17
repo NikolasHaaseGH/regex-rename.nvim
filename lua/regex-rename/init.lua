@@ -2,6 +2,7 @@ local M = {}
 
 local virtualCursor = require("regex-rename.virtualCursor")
 local common = require("regex-rename.common")
+local extmark = require("regex-rename.extmark")
 
 function dump(o)
    if type(o) == 'table' then
@@ -25,6 +26,10 @@ function M.rename()
 
        virtualCursor.add(line, column, 1, false)
     end
+end
+
+function M.setup()
+    extmark.setup()
 end
 
 return M
