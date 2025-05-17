@@ -5,36 +5,34 @@ local common = require("regex-rename.common")
 local extmark = require("regex-rename.extmark")
 
 local function is_mode(mode)
-  return vim.api.nvim_get_mode().mode == mode
+    return vim.api.nvim_get_mode().mode == mode
 end
 
 -- Get current visual area
 -- Returns v_lnum, v_col, lnum, col, curswant
 local function get_visual_area()
-  local vpos = vim.fn.getpos("v")
-  local cpos = vim.fn.getcurpos()
-  return vpos[2], vpos[3], cpos[2], cpos[3], cpos[5]
+    local vpos = vim.fn.getpos("v")
+    local cpos = vim.fn.getcurpos()
+    return vpos[2], vpos[3], cpos[2], cpos[3], cpos[5]
 end
 
 -- Get current visual area in a forward direction
 -- returns lnum1, col1, lnum2, col2
 local function get_normalised_visual_area()
+    local v_lnum, v_col, lnum, col = get_visual_area()
 
-  local v_lnum, v_col, lnum, col = get_visual_area()
-
-  -- Normalise
-  if v_lnum < lnum then
-    return v_lnum, v_col, lnum, col
-  elseif lnum < v_lnum then
-    return lnum, col, v_lnum, v_col
-  else -- v_lnum == lnum
-    if v_col <= col then
-      return v_lnum, v_col, lnum, col
-    else -- col < v_col
-      return lnum, col, v_lnum, v_col
+    -- Normalise
+    if v_lnum < lnum then
+        return v_lnum, v_col, lnum, col
+    elseif lnum < v_lnum then
+        return lnum, col, v_lnum, v_col
+    else -- v_lnum == lnum
+        if v_col <= col then
+            return v_lnum, v_col, lnum, col
+        else -- col < v_col
+            return lnum, col, v_lnum, v_col
+        end
     end
-  end
-
 end
 
 local function get_visual_area_text()
@@ -50,7 +48,7 @@ local function get_visual_area_text()
 end
 
 local function getWordUnderCursor()
-    local pattern = nil
+    local pattern = ""
 
     if is_mode("v") then
         pattern = get_visual_area_text()
@@ -58,19 +56,15 @@ local function getWordUnderCursor()
         -- Get word under cursor
         pattern = vim.fn.expand("<cword>")
         -- Match whole word
-        pattern = "\\<" .. vim.pesc(pattern) .. "\\>"
+        --pattern = "\\<" .. vim.pesc(pattern) .. "\\>"
     end
 
-    if pattern == "" then
-        return nil
-    else
-        return pattern
-    end
+    return pattern
 end
 
 function M.rename()
     local token = getWordUnderCursor()
-    if token == nil then
+    if token == "" then
         return
     end
 
