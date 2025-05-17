@@ -12,7 +12,7 @@ function M.rename()
         local column = matches[i][2]
         local line = matches[i][1]
 
-        virtualCursor.add(line, column, , false)
+        virtualCursor.add(line, column, 1, false)
     end
 end
 
