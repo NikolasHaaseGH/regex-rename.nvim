@@ -1,6 +1,7 @@
 local M = {}
 
-local normalMode = require("regex-rename.normalMode")
+local virtualCursor = require("regex-rename.visualCursor")
+local common = require("regex-rename.common")
 
 function dump(o)
    if type(o) == 'table' then
@@ -16,8 +17,14 @@ function dump(o)
 end
 
 function M.rename()
-    local result = normalMode.rename()
-    print(dump(result))
+    local matches = common.scanFileForMatches("if", 1, "$")
+
+    for i = 1, #matches do
+        local column = matches[i][1]
+        local line = matches[i][2]
+
+       virtualCursor.add(line, column, 1, false)
+    end
 end
 
 return M

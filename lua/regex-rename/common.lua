@@ -20,14 +20,14 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
 
         if string.sub(line, i, i) == string.sub(token, match_step, match_step) then
             if match_step == tokenLength then
-                table.insert(matchesArray, {lineNumber, match_start})
-                match_start = i+1
+                table.insert(matchesArray, { lineNumber, match_start })
+                match_start = i + 1
                 match_step = 1
             else
                 match_step = match_step + 1
             end
         else
-            match_start = i+1
+            match_start = i + 1
             match_step = 1
         end
     end
@@ -35,17 +35,17 @@ end
 
 function M.scanFileForMatches(token, start_line, end_line)
     local matches = {}
-    local buffer = vim.api.nvim_get_current_buf() 
+    local buffer = vim.api.nvim_get_current_buf()
     local bufferLines = vim.api.nvim_buf_get_lines(buffer, 1, 5, false)
     local lineColumn = start_line
 
     for i = 1, #bufferLines do
-        scanLineForMatches(token, bufferLines[i], matches, lineColumn )
+        scanLineForMatches(token, bufferLines[i], matches, lineColumn)
     end
 
     return matches
 end
 
-M.scanFileForMatches("test", 0, 5)
+
 
 return M
