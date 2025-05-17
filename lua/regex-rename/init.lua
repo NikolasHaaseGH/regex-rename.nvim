@@ -20,6 +20,8 @@ end
 function M.rename()
     local matches = common.scanFileForMatches("if", 1, "$")
 
+    print(dump(matches))
+
     for i = 1, #matches do
         local column = matches[i][1]
         local line = matches[i][2]
