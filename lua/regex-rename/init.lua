@@ -24,7 +24,7 @@ function M.rename()
         virtualCursor.add_with_visual_area(line, positionRelativeToWord, 1, line, column, false, tokenSize)
 
         if line == cursorLine then
-            if abs(cursorCol - column) < tokenSize then
+            if math.abs(cursorCol - column) < tokenSize then
                 vim.fn.cursor({line, positionRelativeToWord, 0, -1})
             end 
         end 
