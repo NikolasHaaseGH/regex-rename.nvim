@@ -19,8 +19,9 @@ function M.rename()
         local endOfWord = column + offset
 
         virtualCursor.add_with_visual_area(line, endOfWord, 1, line, column, false, #token)
-        vim.fn.cursor({line, endOfWord, 0, -1})
     end
+
+    vim.fn.cursor({matches[1][1], matches[1][2] + offset, 0, -1})
 end
 
 function M.setup()
