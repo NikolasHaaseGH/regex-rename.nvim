@@ -52,13 +52,11 @@ function M.scanFileForMatches(token, start_line, end_line)
     local bufferLines = vim.api.nvim_buf_get_lines(buffer, 0, -1, false)
     local lineColumn = start_line
 
-    local s = ""
     for i = 1, #bufferLines do
         scanLineForMatches(token, bufferLines[i], matches, lineColumn)
-        s = s .. M.dump(matches)
     end
 
-    print(s)
+    print(M.dump(matches))
 
     return matches
 end
