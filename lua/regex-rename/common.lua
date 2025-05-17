@@ -2,6 +2,19 @@ local M = {}
 
 local vapi = vim.api
 
+function M.dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. M.dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
 local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_start = 1
     local match_step = 1
@@ -41,6 +54,7 @@ function M.scanFileForMatches(token, start_line, end_line)
 
     for i = 1, #bufferLines do
         scanLineForMatches(token, bufferLines[i], matches, lineColumn)
+        M.dump(matches)
     end
 
     return matches
