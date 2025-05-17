@@ -53,7 +53,11 @@ function M.scanFileForMatches(token, start_line, end_line)
     local lineColumn = start_line
 
     for i = 1, #bufferLines do
-        scanLineForMatches(token, bufferLines[i], matches, lineColumn)
+        if #bufferLines[i] >= #token then
+            scanLineForMatches(token, bufferLines[i], matches, lineColumn)
+        end
+
+        lineColumn = lineColumn + 1
     end
 
     print(M.dump(matches))
