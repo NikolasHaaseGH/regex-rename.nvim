@@ -83,7 +83,7 @@ function VirtualCursor.add_with_visual_area(lnum, col, curswant, visual_start_ln
   table.insert(virtualCursors, createCursor(lnum, col, curswant, visual_start_lnum, visual_start_col, seq))
 
   -- Create an extmark
-  extmark.update_virtual_cursor_extmarks(virtualCursors[#virtualCursors])
+  extmark.update_virtual_cursor_extmark(virtualCursors[#virtualCursors])
 
 end
 
