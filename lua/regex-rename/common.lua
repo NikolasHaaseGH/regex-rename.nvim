@@ -28,7 +28,7 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
 
     for i = 1, lineLength do
         if lineLength - match_start < tokenLength then
-            break
+            -- break
         end
 
         if string.sub(line, i, i) == string.sub(token, match_step, match_step) then
