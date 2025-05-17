@@ -15,7 +15,7 @@ function M.dump(o)
    end
 end
 
-local function scanLineForMatches(token, line, matchesArray, lineNumber)
+function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_start = 1
     local match_step = 1
 
@@ -68,6 +68,62 @@ function M.scanFileForMatches(token, start_line, end_line)
     return matches
 end
 
+function M.is_mode(mode)
+    return vim.api.nvim_get_mode().mode == mode
+end
 
+-- Get current visual area
+-- Returns v_lnum, v_col, lnum, col, curswant
+local function get_visual_area()
+    local vpos = vim.fn.getpos("v")
+    local cpos = vim.fn.getcurpos()
+    return vpos[2], vpos[3], cpos[2], cpos[3], cpos[5]
+end
+
+-- Get current visual area in a forward direction
+-- returns lnum1, col1, lnum2, col2
+local function get_normalised_visual_area()
+    local v_lnum, v_col, lnum, col = get_visual_area()
+
+    -- Normalise
+    if v_lnum < lnum then
+        return v_lnum, v_col, lnum, col
+    elseif lnum < v_lnum then
+        return lnum, col, v_lnum, v_col
+    else -- v_lnum == lnum
+        if v_col <= col then
+            return v_lnum, v_col, lnum, col
+        else -- col < v_col
+            return lnum, col, v_lnum, v_col
+        end
+    end
+end
+
+function M.get_visual_area_text()
+    local lnum1, col1, lnum2, col2 = get_normalised_visual_area()
+
+    if lnum1 ~= lnum2 then
+        vim.print("search pattern must be a single line")
+        return nil
+    end
+
+    local line = vim.fn.getline(lnum1)
+    return line:sub(col1, col2)
+end
+
+function M.getWordUnderCursor()
+    local pattern = nil
+
+    if M.is_mode("v") then
+        pattern = M.get_visual_area_text()
+    else -- Normal mode
+        -- Get word under cursor
+        pattern = vim.fn.expand("<cword>")
+        -- Match whole word
+        --pattern = "\\<" .. vim.pesc(pattern) .. "\\>"
+    end
+
+    return pattern == nil and "" or pattern
+end
 
 return M
