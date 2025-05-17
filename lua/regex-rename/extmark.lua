@@ -29,7 +29,7 @@ local function set_extmark(lnum, col, mark_id, hl_group, priority, tokenLength)
 end
 
 function M.update_virtual_cursor_extmark(vc, tokenLength, reverse)
-    local startCol = reverse and vc.col - tokenLength and vc.col
+    local startCol = reverse and vc.col - tokenLength or vc.col
 
     if vc.editable then
         local hl_group = locked and locked_cursor_hl_group or cursor_hl_group
