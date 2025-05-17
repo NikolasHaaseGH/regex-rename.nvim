@@ -56,7 +56,7 @@ function M.scanFileForMatches(token, start_line, end_line)
         scanLineForMatches(token, bufferLines[i], matches, lineColumn)
     end
 
-    print(M.dump(matches)
+    print(M.dump(matches))
 
     return matches
 end
