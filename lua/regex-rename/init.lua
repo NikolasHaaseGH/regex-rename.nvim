@@ -21,15 +21,15 @@ function M.rename()
         local column = matches[i][2]
         local newCursorPosition = column + offset
 
-        virtualCursor.add_with_visual_area(line, newCursorPosition, 1, line, column, false, tokenSize)
 
         if line == cursorLine then
             if math.abs(cursorCol - column) < tokenSize then
-                vim.fn.cursor({line, newCursorPosition - 1, 0, -1})
-            end 
-        end 
+                vim.fn.cursor({ line, newCursorPosition, 0, -1 })
+            end
+        else
+            virtualCursor.add_with_visual_area(line, newCursorPosition, 1, line, column, false, tokenSize)
+        end
     end
-
 end
 
 function M.setup()
