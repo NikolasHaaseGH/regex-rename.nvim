@@ -15,7 +15,7 @@ function M.dump(o)
    end
 end
 
-function scanLineForMatches(token, line, matchesArray, lineNumber)
+local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local match_start = 1
     local match_step = 1
 

@@ -16,9 +16,10 @@ function M.rename()
     for i = 1, #matches do
         local line = matches[i][1]
         local column = matches[i][2]
+        local endOfWord = column + offset
 
-        virtualCursor.add_with_visual_area(line,  column + offset, 1, line, column, false, #token)
-        virtualCursor.add(line, column + offset, 1, false, #token)
+        virtualCursor.add_with_visual_area(line, endOfWord, 1, line, column, false, #token)
+        vim.fn.cursor({line, endOfWord, 0, -1})
     end
 end
 
