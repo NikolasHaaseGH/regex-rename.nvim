@@ -35,31 +35,6 @@ function createCursor(lnum, col, curswant, visual_start_lnum, visual_start_col, 
 end
 
 
-function VirtualCursor.addCursor(lnum, col, mark_id, hl_group, priority)
-    local opts = {}
-
-    if mark_id ~= 0 then
-        opts.id = mark_id
-    end
-
-
-    opts.end_col = col
-    opts.hl_group = hl_group
-end
-
-
-local function update_virtual_cursor_extmark(vc)
-
-  if vc.editable then
-    hl_group = locked and locked_cursor_hl_group or cursor_hl_group
-    vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, hl_group, 9999)
-  else
-    -- Invisible mark when the virtual cursor isn't editable (in collision with the real cursor)
-    vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, "", 9999)
-  end
-
-end
-
 -- Add a new virtual cursor with a visual area
 -- add_seq indicates that a sequence number should be added to store the order that cursors have being added
 function VirtualCursor.add_with_visual_area(lnum, col, curswant, visual_start_lnum, visual_start_col, add_seq)
