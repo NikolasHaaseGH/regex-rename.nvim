@@ -28,13 +28,15 @@ local function set_extmark(lnum, col, mark_id, hl_group, priority, tokenLength)
     return vim.api.nvim_buf_set_extmark(0, highlight_namespace_id, lnum - 1, col - 1, opts)
 end
 
-function M.update_virtual_cursor_extmark(vc, tokenLength)
+function M.update_virtual_cursor_extmark(vc, tokenLength, reverse)
+    local startCol = reverse and vc.col - tokenLength and vc.col
+
     if vc.editable then
         local hl_group = locked and locked_cursor_hl_group or cursor_hl_group
-        vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, hl_group, 9999, tokenLength)
+        vc.mark_id = set_extmark(vc.lnum, startCol, vc.mark_id, hl_group, 9999, tokenLength)
     else
         -- Invisible mark when the virtual cursor isn't editable (in collision with the real cursor)
-        vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, "", 9999, tokenLength)
+        vc.mark_id = set_extmark(vc.lnum, startCol, vc.mark_id, "", 9999, tokenLength)
     end
 end
 
