@@ -13,7 +13,7 @@ function M.rename()
     local matches = common.scanFileForMatches(token, 1, -1)
     local offset = true and #token or 0
 
-    local cursorLine, cursorCol = unpack(vim.api.nvim_win_get_cursor(0))
+    local cursorLine, cursorCol = vim.fn.getpos('.')
     local tokenSize = #token
 
     for i = 1, #matches do
