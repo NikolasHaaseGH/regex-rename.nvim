@@ -5,7 +5,72 @@ local common = require("regex-rename.common")
 local extmark = require("regex-rename.extmark")
 
 
+-- Get current visual area
+-- Returns v_lnum, v_col, lnum, col, curswant
+function M.get_visual_area()
+  local vpos = vim.fn.getpos("v")
+  local cpos = vim.fn.getcurpos()
+  return vpos[2], vpos[3], cpos[2], cpos[3], cpos[5]
+end
+
+-- Get current visual area in a forward direction
+-- returns lnum1, col1, lnum2, col2
+function M.get_normalised_visual_area()
+
+  local v_lnum, v_col, lnum, col = M.get_visual_area()
+
+  -- Normalise
+  if v_lnum < lnum then
+    return v_lnum, v_col, lnum, col
+  elseif lnum < v_lnum then
+    return lnum, col, v_lnum, v_col
+  else -- v_lnum == lnum
+    if v_col <= col then
+      return v_lnum, v_col, lnum, col
+    else -- col < v_col
+      return lnum, col, v_lnum, v_col
+    end
+  end
+
+end
+
+local function get_visual_area_text()
+    local lnum1, col1, lnum2, col2 = common.get_normalised_visual_area()
+
+    if lnum1 ~= lnum2 then
+        vim.print("search pattern must be a single line")
+        return nil
+    end
+
+    local line = vim.fn.getline(lnum1)
+    return line:sub(col1, col2)
+end
+
+local function getWordUnderCursor()
+    local pattern = nil
+
+    if common.is_mode("v") then
+        pattern = get_visual_area_text()
+    else -- Normal mode
+        -- Get word under cursor
+        pattern = vim.fn.expand("<cword>")
+        -- Match whole word
+        pattern = "\\<" .. vim.pesc(pattern) .. "\\>"
+    end
+
+    if pattern == "" then
+        return nil
+    else
+        return pattern
+    end
+end
+
 function M.rename()
+    local token = getWordUnderCursor()
+    if token == nil then
+        return
+    end
+
     local token = "if"
     local matches = common.scanFileForMatches(token, 1, -1)
 
@@ -19,27 +84,6 @@ end
 
 function M.setup()
     extmark.setup()
-end
-
-local function get_search_pattern()
-
-  local pattern = nil
-
-  if common.is_mode("v") then
-    pattern = get_visual_area_text()
-  else -- Normal mode
-    -- Get word under cursor
-    pattern = vim.fn.expand("<cword>")
-    -- Match whole word
-    pattern = "\\<" .. vim.pesc(pattern) .. "\\>"
-  end
-
-  if pattern == "" then
-    return nil
-  else
-    return pattern
-  end
-
 end
 
 return M
