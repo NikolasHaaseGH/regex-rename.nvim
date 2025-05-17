@@ -37,7 +37,7 @@ end
 
 -- Add a new virtual cursor with a visual area
 -- add_seq indicates that a sequence number should be added to store the order that cursors have being added
-function VirtualCursor.add_with_visual_area(lnum, col, curswant, visual_start_lnum, visual_start_col, add_seq)
+function VirtualCursor.add_with_visual_area(lnum, col, curswant, visual_start_lnum, visual_start_col, add_seq, tokenLength)
 
   -- Check for existing virtual cursor
   for _, vc in ipairs(virtualCursors) do
@@ -55,7 +55,7 @@ function VirtualCursor.add_with_visual_area(lnum, col, curswant, visual_start_ln
     -- next_seq = next_seq + 1
   end
 
-  table.insert(virtualCursors, createCursor(lnum, col, curswant, visual_start_lnum, visual_start_col, seq))
+  table.insert(virtualCursors, createCursor(lnum, col, curswant, visual_start_lnum, visual_start_col, seq, tokenLength))
 
   -- Create an extmark
   extmark.update_virtual_cursor_extmark(virtualCursors[#virtualCursors])
@@ -64,8 +64,8 @@ end
 
 -- Add a new virtual cursor
 -- add_seq indicates that a sequence number should be added to store the order that cursors have being added
-function VirtualCursor.add(lnum, col, curswant, add_seq)
-  VirtualCursor.add_with_visual_area(lnum, col, curswant, lnum, col, add_seq)
+function VirtualCursor.add(lnum, col, curswant, add_seq, tokenLength)
+  VirtualCursor.add_with_visual_area(lnum, col, curswant, lnum, col, add_seq, tokenLength)
 end
 
 return VirtualCursor

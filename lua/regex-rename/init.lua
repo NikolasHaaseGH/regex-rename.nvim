@@ -6,13 +6,14 @@ local extmark = require("regex-rename.extmark")
 
 
 function M.rename()
-    local matches = common.scanFileForMatches("if", 1, -1)
+    local token = "if"
+    local matches = common.scanFileForMatches(token, 1, -1)
 
     for i = 1, #matches do
         local column = matches[i][2]
         local line = matches[i][1]
 
-        virtualCursor.add(line, column, 1, false)
+        virtualCursor.add(line, column, 1, false, #token)
     end
 end
 

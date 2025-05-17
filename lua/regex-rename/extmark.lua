@@ -10,7 +10,7 @@ local highlight_namespace_id = nil
 local locked = false
 
 
-local function set_extmark(lnum, col, mark_id, hl_group, priority)
+local function set_extmark(lnum, col, mark_id, hl_group, priority, tokenLength)
     local opts = {}
 
     if mark_id ~= 0 then
@@ -18,7 +18,7 @@ local function set_extmark(lnum, col, mark_id, hl_group, priority)
     end
 
     -- Otherwise highlight the character
-    opts.end_col = col + 2
+    opts.end_col = tokenLength
     opts.hl_group = hl_group
 
     if priority ~= 0 then
@@ -28,13 +28,13 @@ local function set_extmark(lnum, col, mark_id, hl_group, priority)
     return vim.api.nvim_buf_set_extmark(0, highlight_namespace_id, lnum - 1, col - 1, opts)
 end
 
-function M.update_virtual_cursor_extmark(vc)
+function M.update_virtual_cursor_extmark(vc, tokenLength)
     if vc.editable then
         local hl_group = locked and locked_cursor_hl_group or cursor_hl_group
-        vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, hl_group, 9999)
+        vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, hl_group, 9999, tokenLength)
     else
         -- Invisible mark when the virtual cursor isn't editable (in collision with the real cursor)
-        vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, "", 9999)
+        vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, "", 9999, tokenLength)
     end
 end
 
