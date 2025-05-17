@@ -1,7 +1,7 @@
 local VirtualCursor = {}
 
-local common = require("multiple-cursors.common")
-local extmark = require("multiple-cursors.extmark")
+local common = require("regex-rename.common")
+local extmark = require("regex-rename.extmark")
 
 local virtualCursors = {}
 
