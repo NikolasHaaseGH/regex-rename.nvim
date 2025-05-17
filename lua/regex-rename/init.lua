@@ -4,13 +4,13 @@ local virtualCursor = require("regex-rename.virtualCursor")
 local common = require("regex-rename.common")
 local extmark = require("regex-rename.extmark")
 
-function M.is_mode(mode)
+local function is_mode(mode)
   return vim.api.nvim_get_mode().mode == mode
 end
 
 -- Get current visual area
 -- Returns v_lnum, v_col, lnum, col, curswant
-function M.get_visual_area()
+local function get_visual_area()
   local vpos = vim.fn.getpos("v")
   local cpos = vim.fn.getcurpos()
   return vpos[2], vpos[3], cpos[2], cpos[3], cpos[5]
@@ -18,9 +18,9 @@ end
 
 -- Get current visual area in a forward direction
 -- returns lnum1, col1, lnum2, col2
-function M.get_normalised_visual_area()
+local function get_normalised_visual_area()
 
-  local v_lnum, v_col, lnum, col = M.get_visual_area()
+  local v_lnum, v_col, lnum, col = get_visual_area()
 
   -- Normalise
   if v_lnum < lnum then
@@ -38,7 +38,7 @@ function M.get_normalised_visual_area()
 end
 
 local function get_visual_area_text()
-    local lnum1, col1, lnum2, col2 = common.get_normalised_visual_area()
+    local lnum1, col1, lnum2, col2 = get_normalised_visual_area()
 
     if lnum1 ~= lnum2 then
         vim.print("search pattern must be a single line")
@@ -52,7 +52,7 @@ end
 local function getWordUnderCursor()
     local pattern = nil
 
-    if common.is_mode("v") then
+    if is_mode("v") then
         pattern = get_visual_area_text()
     else -- Normal mode
         -- Get word under cursor
