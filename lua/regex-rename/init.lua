@@ -17,7 +17,7 @@ end
 
 function M.rename()
     local result = normalMode.rename()
-        --print(dump(result))
+    print(dump(result))
 end
 
 return M
