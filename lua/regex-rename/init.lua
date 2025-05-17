@@ -13,15 +13,23 @@ function M.rename()
     local matches = common.scanFileForMatches(token, 1, -1)
     local offset = true and #token or 0
 
+    local cursorLine, cursorCol = unpack(vim.api.nvim_win_get_cursor(0))
+    local tokenSize = #token
+
     for i = 1, #matches do
         local line = matches[i][1]
         local column = matches[i][2]
-        local endOfWord = column + offset
+        local positionRelativeToWord = column + offset
 
-        virtualCursor.add_with_visual_area(line, endOfWord, 1, line, column, false, #token)
+        virtualCursor.add_with_visual_area(line, positionRelativeToWord, 1, line, column, false, tokenSize)
+
+        if line == cursorLine then
+            if abs(cursorCol - column) < tokenSize then
+                vim.fn.cursor({line, positionRelativeToWord, 0, -1})
+            end 
+        end 
     end
 
-    vim.fn.cursor({matches[1][1], matches[1][2] + offset, 0, -1})
 end
 
 function M.setup()
