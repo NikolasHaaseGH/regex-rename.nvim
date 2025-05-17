@@ -74,7 +74,6 @@ function M.rename()
         return
     end
 
-    local token = "if"
     local matches = common.scanFileForMatches(token, 1, -1)
 
     for i = 1, #matches do
