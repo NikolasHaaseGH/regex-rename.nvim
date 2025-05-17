@@ -4,6 +4,9 @@ local virtualCursor = require("regex-rename.virtualCursor")
 local common = require("regex-rename.common")
 local extmark = require("regex-rename.extmark")
 
+function M.is_mode(mode)
+  return vim.api.nvim_get_mode().mode == mode
+end
 
 -- Get current visual area
 -- Returns v_lnum, v_col, lnum, col, curswant
