@@ -28,7 +28,7 @@ local function set_extmark(lnum, col, mark_id, hl_group, priority)
     return vim.api.nvim_buf_set_extmark(0, highlight_namespace_id, lnum - 1, col - 1, opts)
 end
 
-local function update_virtual_cursor_extmark(vc)
+function Extmark.update_virtual_cursor_extmark(vc)
     if vc.editable then
         local hl_group = locked and locked_cursor_hl_group or cursor_hl_group
         vc.mark_id = set_extmark(vc.lnum, vc.col, vc.mark_id, hl_group, 9999)

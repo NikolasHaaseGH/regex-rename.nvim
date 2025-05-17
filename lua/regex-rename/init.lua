@@ -1,6 +1,6 @@
 local M = {}
 
-local virtualCursor = require("regex-rename.visualCursor")
+local virtualCursor = require("regex-rename.virtualCursor")
 local common = require("regex-rename.common")
 
 function dump(o)
