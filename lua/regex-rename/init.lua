@@ -20,4 +20,25 @@ function M.setup()
     extmark.setup()
 end
 
+local function get_search_pattern()
+
+  local pattern = nil
+
+  if common.is_mode("v") then
+    pattern = get_visual_area_text()
+  else -- Normal mode
+    -- Get word under cursor
+    pattern = vim.fn.expand("<cword>")
+    -- Match whole word
+    pattern = "\\<" .. vim.pesc(pattern) .. "\\>"
+  end
+
+  if pattern == "" then
+    return nil
+  else
+    return pattern
+  end
+
+end
+
 return M
