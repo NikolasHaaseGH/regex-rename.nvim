@@ -19,13 +19,13 @@ function M.rename()
     for i = 1, #matches do
         local line = matches[i][1]
         local column = matches[i][2]
-        local positionRelativeToWord = column + offset
+        local newCursorPosition = column + offset
 
-        virtualCursor.add_with_visual_area(line, positionRelativeToWord, 1, line, column, false, tokenSize)
+        virtualCursor.add_with_visual_area(line, newCursorPosition, 1, line, column, false, tokenSize)
 
         if line == cursorLine then
             if math.abs(cursorCol - column) < tokenSize then
-                vim.fn.cursor({line, positionRelativeToWord, 0, -1})
+                vim.fn.cursor({line, newCursorPosition - 1, 0, -1})
             end 
         end 
     end
