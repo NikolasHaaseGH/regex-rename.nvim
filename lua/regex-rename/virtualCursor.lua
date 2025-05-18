@@ -81,4 +81,27 @@ function M.update_extmarks()
     end
 end
 
+-- Callback for the CursorMoved event
+-- Set editable to false for any virtual cursors that collide with the real
+-- cursor
+function M.cursor_moved()
+
+  -- Get real cursor position
+  local pos = vim.fn.getcurpos() -- [0, lnum, col, off, curswant]
+
+  for idx = #virtualCursors, 1, -1 do
+    local vc = virtualCursors[idx]
+
+    -- First update the virtual cursor position from the extmark in case there
+    -- was a change due to editing
+    extmark.update_virtual_cursor_position(vc)
+
+    -- Mark editable to false if coincident with the real cursor
+    --vc.editable = not (vc.lnum == pos[2] and vc.col == pos[3])
+
+    -- Update the extmark (extmark is invisible if editable == false)
+    extmark.update_virtual_cursor_extmarks(vc)
+  end
+end
+
 return M

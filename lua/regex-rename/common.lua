@@ -3,16 +3,16 @@ local M = {}
 local vapi = vim.api
 
 function M.dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. M.dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
+    if type(o) == 'table' then
+        local s = '{ '
+        for k, v in pairs(o) do
+            if type(k) ~= 'number' then k = '"' .. k .. '"' end
+            s = s .. '[' .. k .. '] = ' .. M.dump(v) .. ','
+        end
+        return s .. '} '
+    else
+        return tostring(o)
+    end
 end
 
 local function scanLineForMatches(token, line, matchesArray, lineNumber)
@@ -27,7 +27,6 @@ local function scanLineForMatches(token, line, matchesArray, lineNumber)
     local tokenLength = #token
 
     for i = 1, lineLength do
-
         if string.sub(line, i, i) == string.sub(token, match_step, match_step) then
             if match_step == tokenLength then
                 table.insert(matchesArray, { lineNumber, match_start })
