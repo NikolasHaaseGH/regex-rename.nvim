@@ -67,7 +67,7 @@ function M.scanFileForMatches(token, start_line, end_line)
     return matches
 end
 
-function M.is_mode(mode)
+function M.isMode(mode)
     return vim.api.nvim_get_mode().mode == mode
 end
 
@@ -81,7 +81,7 @@ end
 
 -- Get current visual area in a forward direction
 -- returns lnum1, col1, lnum2, col2
-local function get_normalised_visual_area()
+local function getNormalisedVisualArea()
     local v_lnum, v_col, lnum, col = get_visual_area()
 
     -- Normalise
@@ -98,7 +98,7 @@ local function get_normalised_visual_area()
     end
 end
 
-function M.get_visual_area_text()
+function M.getVisualAreaText()
     local lnum1, col1, lnum2, col2 = get_normalised_visual_area()
 
     if lnum1 ~= lnum2 then
@@ -113,8 +113,8 @@ end
 function M.getWordUnderCursor()
     local pattern = nil
 
-    if M.is_mode("v") then
-        pattern = M.get_visual_area_text()
+    if M.isMode("v") then
+        pattern = M.getVisualAreaText()
     else -- Normal mode
         -- Get word under cursor
         pattern = vim.fn.expand("<cword>")
