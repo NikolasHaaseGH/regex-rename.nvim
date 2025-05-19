@@ -1,4 +1,4 @@
-local normal_mode = require("regex-rename.normal_mode")
+local normal_mode = require("regex-rename.normal-mode")
 
 local Autocommands = {}
 

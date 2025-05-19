@@ -4,9 +4,6 @@ local virtualCursor = require("regex-rename.virtual-cursor")
 local common = require("regex-rename.common")
 local cursors = require("regex-rename.cursors")
 
-local normal_mode_mode_change = require("regex-rename.normalMode")
-local insert_mode_escape = require("regex-rename.insertMode")
-
 local autocommands = require("regex-rename.autocommands")
 
 function M.rename()
